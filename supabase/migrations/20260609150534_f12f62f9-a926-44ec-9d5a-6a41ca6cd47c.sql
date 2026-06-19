@@ -1,0 +1,1 @@
+ALTER TABLE public.app_clientes ADD COLUMN IF NOT EXISTS celular text;

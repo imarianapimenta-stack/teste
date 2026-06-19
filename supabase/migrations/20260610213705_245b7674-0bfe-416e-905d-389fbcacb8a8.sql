@@ -1,0 +1,1 @@
+REVOKE ALL ON public.app_clientes FROM anon, authenticated; GRANT ALL ON public.app_clientes TO service_role;

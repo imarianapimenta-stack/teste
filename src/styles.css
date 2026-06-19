@@ -1,0 +1,175 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant light (&:is(.light, .light *));
+
+/*
+ * Mecânica Braba — design tokens.
+ * Default = dark (preto + tons de rosa). `.light` class on <html> = modo diurno.
+ * Multiple pink shades exposed as utilities for harmonious depth.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-brand-pink: var(--brand-pink);
+  --color-brand-pink-light: var(--brand-pink-light);
+  --color-brand-pink-soft: var(--brand-pink-soft);
+  --color-brand-fuchsia: var(--brand-fuchsia);
+  --color-brand-pink-deep: var(--brand-pink-deep);
+}
+
+/* DARK (modo noturno) — default */
+:root {
+  --radius: 0.625rem;
+
+  /* Brand pinks (logo-inspired) */
+  --brand-pink: #ff69b4;          /* main hot pink */
+  --brand-pink-light: #ffb6d9;    /* highlights */
+  --brand-pink-soft: #ffd6e8;     /* soft surfaces */
+  --brand-fuchsia: #c81e7a;       /* deeper fuchsia */
+  --brand-pink-deep: #7a1244;     /* borders / shadows / details */
+
+  --background: oklch(0.07 0.01 340);
+  --foreground: oklch(0.98 0 0);
+
+  --card: oklch(0.13 0.03 340);
+  --card-foreground: oklch(0.98 0 0);
+
+  --popover: oklch(0.13 0.03 340);
+  --popover-foreground: oklch(0.98 0 0);
+
+  --primary: oklch(0.72 0.22 350);
+  --primary-foreground: oklch(0.1 0 0);
+
+  --secondary: oklch(0.2 0.05 340);
+  --secondary-foreground: oklch(0.98 0 0);
+
+  --muted: oklch(0.16 0.02 340);
+  --muted-foreground: oklch(0.72 0.04 340);
+
+  --accent: oklch(0.84 0.14 350);
+  --accent-foreground: oklch(0.1 0 0);
+
+  --destructive: oklch(0.62 0.25 27);
+  --destructive-foreground: oklch(0.98 0 0);
+
+  --border: oklch(0.4 0.16 350 / 0.45);
+  --input: oklch(0.22 0.05 340);
+  --ring: oklch(0.72 0.22 350);
+
+  --gradient-brand: linear-gradient(135deg, var(--brand-pink-light), var(--brand-pink) 45%, var(--brand-fuchsia));
+  --shadow-brand: 0 10px 40px -10px color-mix(in oklab, var(--brand-pink) 60%, transparent);
+  --shadow-brand-soft: 0 6px 24px -10px color-mix(in oklab, var(--brand-pink-light) 50%, transparent);
+}
+
+/* LIGHT (modo diurno) — applied via `.light` class on <html> */
+.light {
+  --background: #ffffff;
+  --foreground: #1a0a14;
+
+  --card: #ffffff;
+  --card-foreground: #1a0a14;
+
+  --popover: #ffffff;
+  --popover-foreground: #1a0a14;
+
+  --primary: oklch(0.62 0.23 350);
+  --primary-foreground: #ffffff;
+
+  --secondary: #ffe5f1;
+  --secondary-foreground: #5a0a32;
+
+  --muted: #fde7f1;
+  --muted-foreground: #7a3a5a;
+
+  --accent: #ffd6e8;
+  --accent-foreground: #5a0a32;
+
+  --destructive: oklch(0.58 0.24 27);
+  --destructive-foreground: #ffffff;
+
+  --border: color-mix(in oklab, var(--brand-pink) 35%, transparent);
+  --input: #ffe5f1;
+  --ring: var(--brand-pink);
+
+  --gradient-brand: linear-gradient(135deg, var(--brand-pink-light), var(--brand-pink) 45%, var(--brand-fuchsia));
+  --shadow-brand: 0 10px 40px -12px color-mix(in oklab, var(--brand-pink) 45%, transparent);
+  --shadow-brand-soft: 0 6px 24px -10px color-mix(in oklab, var(--brand-pink-light) 60%, transparent);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html, body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+  /* Subtle pink ambient glow — only in dark mode */
+  body {
+    background-image:
+      radial-gradient(1100px 600px at 85% -10%, color-mix(in oklab, var(--brand-pink) 18%, transparent), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, color-mix(in oklab, var(--brand-fuchsia) 14%, transparent), transparent 60%);
+    background-attachment: fixed;
+  }
+  .light body {
+    background-image: none;
+  }
+}
+
+/* Birthday balloon animation (rises from bottom to top, drifts horizontally) */
+@keyframes mb-balloon-rise {
+  0%   { transform: translate3d(var(--mb-drift-start, 0), 110vh, 0) rotate(-4deg); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translate3d(var(--mb-drift-end, 0), -20vh, 0) rotate(4deg); opacity: 0; }
+}
+.mb-balloon {
+  position: fixed;
+  bottom: 0;
+  width: 36px;
+  height: 46px;
+  border-radius: 50% 50% 48% 48%;
+  background: radial-gradient(circle at 35% 30%, #ffd6e8 0%, #ff69b4 55%, #c81e7a 100%);
+  box-shadow: 0 6px 18px -4px rgba(255, 105, 180, 0.6), inset -4px -6px 10px rgba(122, 18, 68, 0.45);
+  animation: mb-balloon-rise linear forwards;
+  pointer-events: none;
+  z-index: 9999;
+}
+.mb-balloon::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 1px;
+  height: 60px;
+  background: rgba(255, 182, 217, 0.7);
+  transform: translateX(-50%);
+}
